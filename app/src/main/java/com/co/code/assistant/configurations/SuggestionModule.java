@@ -10,7 +10,8 @@ import com.co.code.assistant.core.domains.ISuggestionDomain;
 import com.co.code.assistant.core.repositories.suggestion.ISuggestionRepository;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
 import com.co.code.assistant.core.usecases.suggestion.SuggestionUseCase;
-import com.co.code.assistant.entrypoints.example.handler.ExampleEntryPointHandler;
+import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
+import com.co.code.assistant.entrypoints.example.handler.IACodeAssitantEntryPointHandler;
 import com.co.code.assistant.providers.items.dto.ISuggestionDto;
 import com.co.code.assistant.providers.items.gpt.GPTProvider;
 import com.google.inject.AbstractModule;
@@ -29,8 +30,8 @@ public class SuggestionModule extends AbstractModule {
 
     @Provides
     @Singleton
-    protected IRouter<SuggestionController> provideExampleRouter(ExampleEntryPointHandler exampleEntryPointHandler) {
-        return exampleEntryPointHandler;
+    protected IRouter<SuggestionController> provideExampleRouter(IACodeAssitantEntryPointHandler IACodeAssitantEntryPointHandler) {
+        return IACodeAssitantEntryPointHandler;
     }
 
     @Provides
@@ -47,7 +48,7 @@ public class SuggestionModule extends AbstractModule {
     */
     @Provides
     @Singleton
-    protected ISuggestionHandlerController<Map<String, List<String>>, SuggestionControllerBody, Observable<ControllerDto>> provideControllerHandler(SuggestionControllerHandler suggestionControllerHandler) {
+    protected ISuggestionHandlerController<Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> provideControllerHandler(SuggestionControllerHandler suggestionControllerHandler) {
         return suggestionControllerHandler;
     }
 

@@ -5,6 +5,7 @@ import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.ISuggestionHandlerController;
 import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.example.body.SuggestionControllerBody;
+import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Observable;
@@ -22,5 +23,10 @@ public class PingController extends Controller implements IGetController<Observa
     public Observable<String> getInformation(Map<String, List<String>> params) {
         exampleControllerHandler.handle(params, null);
         return Observable.just("pong");
+    }
+
+    @Override
+    public Observable<String> getInformation(Map<String, List<String>> params, IRequestBody body) {
+        return null;
     }
 }

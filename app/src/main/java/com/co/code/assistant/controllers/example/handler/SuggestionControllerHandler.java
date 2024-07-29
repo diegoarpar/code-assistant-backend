@@ -6,13 +6,14 @@ import com.co.code.assistant.controllers.example.body.SuggestionControllerBody;
 import com.co.code.assistant.controllers.example.dto.SuggestionControllerDto;
 import com.co.code.assistant.core.domains.ISuggestionDomain;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
+import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.Map;
 
-public class SuggestionControllerHandler implements ISuggestionHandlerController<Map<String, List<String>>, SuggestionControllerBody, Observable<ControllerDto>> {
+public class SuggestionControllerHandler implements ISuggestionHandlerController<Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> {
 
     private final SuggestionSafeUseCase<ISuggestionDomain, Map<String, List<String>>> exampleUseCase;
 
@@ -22,7 +23,7 @@ public class SuggestionControllerHandler implements ISuggestionHandlerController
     }
 
     @Override
-    public Observable<ControllerDto> handle(Map<String, List<String>> params, SuggestionControllerBody body) {
+    public Observable<ControllerDto> handle(Map<String, List<String>> params, IRequestBody body) {
         return exampleUseCase.run(params).map(iExampleDomain -> {
             SuggestionControllerDto dto = new SuggestionControllerDto();
             dto.setStatus(iExampleDomain.getExampleId());
@@ -31,7 +32,7 @@ public class SuggestionControllerHandler implements ISuggestionHandlerController
     }
 
     @Override
-    public boolean isValidRequest(Map<String, List<String>> params, SuggestionControllerBody body) {
+    public boolean isValidRequest(Map<String, List<String>> params, IRequestBody body) {
         return false;
     }
 }

@@ -4,6 +4,7 @@ import com.co.code.assistant.configurations.IRouter;
 import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.example.SuggestionController;
+import com.co.code.assistant.entrypoints.example.dto.RequestBodyCodeInputDto;
 import com.google.inject.Inject;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -14,27 +15,27 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.Future;
 
-public class ExampleEntryPointHandler implements IRouter<SuggestionController> {
+public class IACodeAssitantEntryPointHandler implements IRouter<SuggestionController> {
 
     private final Javalin javalin;
     private final SuggestionController controller;
 
     @Inject
-    public ExampleEntryPointHandler(Javalin javalin, SuggestionController controller) {
+    public IACodeAssitantEntryPointHandler(Javalin javalin, SuggestionController controller) {
         this.javalin = javalin;
         this.controller = controller;
     }
 
     @Override
     public void bind() {
-        javalin.get("/api/messages", ctx -> {
+        javalin.post("/api/messages", ctx -> {
             ctx.future(() -> getCompletableFuture(controller, ctx));
         });
 
     }
 
     private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<ControllerDto>> controller, @NotNull Context ctx) {
-        Future future = controller.getInformation(ctx.queryParamMap()).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
+        Future future = controller.getInformation(ctx.queryParamMap(), ctx.bodyAsClass(RequestBodyCodeInputDto.class)).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return future.get();
