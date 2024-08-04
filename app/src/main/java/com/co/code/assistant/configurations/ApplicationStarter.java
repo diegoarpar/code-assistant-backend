@@ -10,19 +10,19 @@ import io.javalin.Javalin;
 
 public class ApplicationStarter {
     private final Javalin javalin;
-    private final IRouter<SuggestionController> exampleControllerIRouter;
+    private final IRouter<SuggestionController> suggestionControllerIRouter;
 
     @Inject
     public ApplicationStarter(Javalin javalin,
                               IRouter<SuggestionController> exampleControllerIRouter
     ) {
         this.javalin = javalin;
-        this.exampleControllerIRouter = exampleControllerIRouter;
+        this.suggestionControllerIRouter = exampleControllerIRouter;
         //this.routerPing = pingController;
     }
 
     public void run(String... args) {
-        exampleControllerIRouter.bind();
-        javalin.start(8080);
+        suggestionControllerIRouter.bind();
+        javalin.start(3030);
     }
 }
