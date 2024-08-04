@@ -7,5 +7,8 @@ public class SuggestionControllerDto extends ControllerDto {
     public void setStatus(String status) {
         this.status = status;
     }
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }

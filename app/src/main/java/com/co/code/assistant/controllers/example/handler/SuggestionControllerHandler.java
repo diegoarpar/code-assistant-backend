@@ -7,11 +7,11 @@ import com.co.code.assistant.controllers.example.dto.SuggestionControllerDto;
 import com.co.code.assistant.core.domains.ISuggestionDomain;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
 import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
+import com.co.code.assistant.entrypoints.example.dto.RequestBodyCodeInputDto;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SuggestionControllerHandler implements ISuggestionHandlerController<Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> {
 
@@ -24,9 +24,14 @@ public class SuggestionControllerHandler implements ISuggestionHandlerController
 
     @Override
     public Observable<ControllerDto> handle(Map<String, List<String>> params, IRequestBody body) {
-        return exampleUseCase.run(params).map(iExampleDomain -> {
+        Map<String, List<String>> params2 = new HashMap<>();
+        List<String> data = new ArrayList<>();
+        data.add(((RequestBodyCodeInputDto) body).code);
+        params2.put("code", data);
+        return exampleUseCase.run(params2).map(iExampleDomain -> {
             SuggestionControllerDto dto = new SuggestionControllerDto();
             dto.setStatus(iExampleDomain.getExampleId());
+            dto.setId(iExampleDomain.getExampleId());
             return dto;
         });
     }

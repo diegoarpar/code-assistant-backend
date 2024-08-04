@@ -32,10 +32,10 @@ public class SuggestionUseCase implements SuggestionSafeUseCase<ISuggestionDomai
     public Observable<ISuggestionDomain> run(Map<String, List<String>> params) {
 
         return Observable.fromCallable(() -> {
-                    return suggestionUseCaseHandler.get()
+                    return suggestionUseCaseHandler.get(params)
                             .map(exampleDto -> {
                                 ISuggestionDomain exampleEntity = SuggestionDomain.builder().build().getEmptyObject();
-                                exampleEntity.setExampleId("exampleId");
+                                exampleEntity.setExampleId(exampleDto.getExampleId());
                                 exampleEntity.setExampleId(exampleDto.getExampleId());
                                 return exampleEntity;
                             });

@@ -18,8 +18,8 @@ public class SuggestionPresenterExample implements IPresenterExample {
     public Observable<ControllerDto> presenter(ControllerDto controllerDto, Map<String, List<String>> params) {
         return Observable.fromCallable(() -> {
                     ControllerDto controllerDto1 = SuggestionPresenterDto.builder().build();
-                    controllerDto1.id = controllerDto.status;
-                    controllerDto1.status = "from presenter";
+                    controllerDto1.id = controllerDto.id;
+                    controllerDto1.status = controllerDto.status;
                     return controllerDto1;
                 }
         );
