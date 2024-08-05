@@ -7,6 +7,7 @@ import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.example.body.SuggestionControllerBody;
 import com.co.code.assistant.controllers.example.dto.SuggestionControllerDto;
 import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
+import com.co.code.assistant.entrypoints.example.dto.RequestBodyCodeInputDto;
 import com.co.code.assistant.presenters.suggestion.SuggestionPresenterExample;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -31,7 +32,7 @@ public class SuggestionController extends Controller implements IGetController<O
 
     @Override
     public Observable<ControllerDto> getInformation(Map<String, List<String>> params, IRequestBody body) {
-        if (!System.getenv("key").equalsIgnoreCase(params.get("key").get(0))) {
+        if (!System.getenv("suggestionkey").equalsIgnoreCase(((RequestBodyCodeInputDto)body).key)) {
             SuggestionControllerDto controllerDto = new SuggestionControllerDto();
             controllerDto.setId("N/A");
             return presenter.presenter(controllerDto, params);
