@@ -1,10 +1,11 @@
-package com.co.code.assistant.entrypoints.example.handler;
+package com.co.code.assistant.entrypoints.codeassitant.handler;
 
 import com.co.code.assistant.configurations.IRouter;
 import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.IGetController;
-import com.co.code.assistant.controllers.example.SuggestionController;
-import com.co.code.assistant.entrypoints.example.dto.RequestBodyCodeInputDto;
+import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
+import com.co.code.assistant.entrypoints.codeassitant.dto.RequestBodyCodeInputDto;
+import com.co.code.assistant.presenters.PresenterDto;
 import com.google.inject.Inject;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -34,7 +35,7 @@ public class IACodeAssitantEntryPointHandler implements IRouter<SuggestionContro
 
     }
 
-    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<ControllerDto>> controller, @NotNull Context ctx) {
+    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<PresenterDto>> controller, @NotNull Context ctx) {
         Future future = controller.getInformation(ctx.queryParamMap(), ctx.bodyAsClass(RequestBodyCodeInputDto.class)).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
         return CompletableFuture.supplyAsync(() -> {
             try {

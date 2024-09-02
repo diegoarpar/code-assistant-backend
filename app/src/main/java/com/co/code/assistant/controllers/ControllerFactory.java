@@ -1,7 +1,7 @@
 package com.co.code.assistant.controllers;
 
 
-import com.co.code.assistant.controllers.example.SuggestionController;
+import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
 
 public class ControllerFactory {
 

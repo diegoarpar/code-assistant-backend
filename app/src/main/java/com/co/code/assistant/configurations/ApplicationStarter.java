@@ -1,6 +1,6 @@
 package com.co.code.assistant.configurations;
 
-import com.co.code.assistant.controllers.example.SuggestionController;
+import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
 import com.google.inject.Inject;
 import io.javalin.Javalin;
 

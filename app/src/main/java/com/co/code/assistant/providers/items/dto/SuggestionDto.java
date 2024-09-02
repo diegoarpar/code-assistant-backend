@@ -5,6 +5,8 @@ import lombok.Builder;
 @Builder
 public class SuggestionDto implements ISuggestionDto {
     private String id;
+    private String content;
+
     @Override
     public void setId(String id) {
         this.id = id;
@@ -13,5 +15,15 @@ public class SuggestionDto implements ISuggestionDto {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String getContent() {
+        return this.content;
     }
 }
