@@ -14,6 +14,7 @@ public abstract class PresenterDto {
     public static class PresenterComponentDto {
         public String id;
         public String content;
+        public List<PresenterComponentDto> components;
     }
 
 }

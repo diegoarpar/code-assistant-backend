@@ -42,7 +42,7 @@ public class SuggestionUseCaseHandler {
                                 clientCopilot.getInformation(params),
                                     (openIA, geminis, copilot) -> {
                                         params.put("prompt", List.of("Create a executive summary with all the input information"));
-                                        params.put("code", List.of(String.format("%s %s %s", openIA.getId(), geminis.getId(), copilot.getId())));
+                                        params.put("code", List.of(String.format("%s %s %s", openIA.getContent(), geminis.getContent(), copilot.getContent())));
 
                                         ISuggestionDomain openIADomain = SuggestionDomain.builder()
                                                 .id("OPENAI")

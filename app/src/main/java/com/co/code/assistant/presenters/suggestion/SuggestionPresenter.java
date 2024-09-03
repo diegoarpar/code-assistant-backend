@@ -6,6 +6,7 @@ import com.co.code.assistant.presenters.PresenterDto;
 import com.co.code.assistant.presenters.suggestion.dto.SuggestionPresenterDto;
 import io.reactivex.rxjava3.core.Observable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +22,12 @@ public class SuggestionPresenter implements IPresenterExample {
                                 SuggestionPresenterDto.PresenterComponentDto componentDto = new SuggestionPresenterDto.PresenterComponentDto();
                                 componentDto.content = row.content;
                                 componentDto.id = row.id;
+                                componentDto.components = Arrays.stream(row.content.split("\\n")).map(s -> {
+                                    SuggestionPresenterDto.PresenterComponentDto componentDtoInside = new SuggestionPresenterDto.PresenterComponentDto();
+                                    componentDtoInside.content = s;
+                                    componentDtoInside.id = "TEXT";
+                                    return componentDtoInside;
+                                }).toList();
                                 return componentDto;
                             }
                     ).collect(Collectors.toList());
