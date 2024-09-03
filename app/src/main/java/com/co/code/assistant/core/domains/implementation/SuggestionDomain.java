@@ -6,16 +6,28 @@ import lombok.Builder;
 @Builder
 public class SuggestionDomain implements ISuggestionDomain {
 
-    private String exampleId;
+    private String id;
+    private String name;
+
 
     @Override
-    public String getExampleId() {
-        return exampleId;
+    public String geId() {
+        return id;
     }
 
     @Override
-    public void setExampleId(String exampleId) {
-        this.exampleId = exampleId;
+    public String getContent() {
+        return name;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setContent(String name) {
+        this.name = name;
     }
 
     @Override

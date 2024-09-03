@@ -1,13 +1,14 @@
 package com.co.code.assistant.presenters.suggestion.dto;
 
-import com.co.code.assistant.controllers.ControllerDto;
-import com.co.code.assistant.presenters.components.UIComponentDto;
+import com.co.code.assistant.presenters.PresenterDto;
 import lombok.Builder;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
-public class SuggestionPresenterDto extends ControllerDto {
-    private String id;
-    private List<UIComponentDto> timeline;
+@Getter
+@Setter
+public class SuggestionPresenterDto extends PresenterDto {
+
 }
 

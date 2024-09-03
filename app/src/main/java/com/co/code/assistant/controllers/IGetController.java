@@ -1,6 +1,6 @@
 package com.co.code.assistant.controllers;
 
-import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
+import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
 
 import java.util.List;
 import java.util.Map;

@@ -2,9 +2,11 @@ package com.co.code.assistant.core.domains;
 
 
 public interface ISuggestionDomain {
-    String getExampleId();
+    String geId();
+    String getContent();
 
-    void setExampleId(String exampleId);
+    void setId(String id);
+    void setContent(String name);
 
     ISuggestionDomain getEmptyObject();
 

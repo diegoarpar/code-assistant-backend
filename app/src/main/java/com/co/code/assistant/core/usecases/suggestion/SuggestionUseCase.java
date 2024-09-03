@@ -1,17 +1,18 @@
 package com.co.code.assistant.core.usecases.suggestion;
 
 import com.co.code.assistant.core.domains.ISuggestionDomain;
-import com.co.code.assistant.core.domains.implementation.SuggestionDomain;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
 import com.co.code.assistant.core.usecases.suggestion.handlers.SuggestionUseCaseHandler;
 import com.co.code.assistant.core.usecases.suggestion.model.SuggestionUseCaseModel;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class SuggestionUseCase implements SuggestionSafeUseCase<ISuggestionDomain, Map<String, List<String>>> {
+public class SuggestionUseCase implements SuggestionSafeUseCase<List<ISuggestionDomain>, Map<String, List<String>>> {
 
 
 
@@ -24,27 +25,24 @@ public class SuggestionUseCase implements SuggestionSafeUseCase<ISuggestionDomai
 
 
     @Override
-    public Observable<ISuggestionDomain> fallback(Throwable t) {
+    public Observable<List<ISuggestionDomain>> fallback(Throwable t) {
         return Observable.just(getFallbackObject());
     }
 
     @Override
-    public Observable<ISuggestionDomain> run(Map<String, List<String>> params) {
-
+    public Observable<List<ISuggestionDomain>> run(Map<String, List<String>> params) {
+        List<ISuggestionDomain> domains = new ArrayList<>();
         return Observable.fromCallable(() -> {
                     return suggestionUseCaseHandler.get(params)
-                            .map(exampleDto -> {
-                                ISuggestionDomain exampleEntity = SuggestionDomain.builder().build().getEmptyObject();
-                                exampleEntity.setExampleId(exampleDto.getExampleId());
-                                exampleEntity.setExampleId(exampleDto.getExampleId());
-                                return exampleEntity;
+                            .map(domainList -> {
+                                return domainList;
                             });
                 }).flatMap(iExampleEntity -> iExampleEntity)
                 //.onErrorReturn(throwable -> getFallbackObject())
                 ;
     }
 
-    public ISuggestionDomain getFallbackObject() {
-        return SuggestionDomain.builder().build().getEmptyObject();
+    public List<ISuggestionDomain> getFallbackObject() {
+        return Collections.EMPTY_LIST;
     }
 }

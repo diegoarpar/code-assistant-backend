@@ -3,14 +3,15 @@ package com.co.code.assistant.configurations;
 import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.ISuggestionHandlerController;
 import com.co.code.assistant.controllers.IGetController;
-import com.co.code.assistant.controllers.example.SuggestionController;
-import com.co.code.assistant.controllers.example.handler.SuggestionControllerHandler;
+import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
+import com.co.code.assistant.controllers.SuggestionController.handler.SuggestionControllerHandler;
 import com.co.code.assistant.core.domains.ISuggestionDomain;
 import com.co.code.assistant.core.repositories.suggestion.ISuggestionRepository;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
 import com.co.code.assistant.core.usecases.suggestion.SuggestionUseCase;
-import com.co.code.assistant.entrypoints.example.dto.IRequestBody;
-import com.co.code.assistant.entrypoints.example.handler.IACodeAssitantEntryPointHandler;
+import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
+import com.co.code.assistant.entrypoints.codeassitant.handler.IACodeAssitantEntryPointHandler;
+import com.co.code.assistant.presenters.PresenterDto;
 import com.co.code.assistant.providers.copilot.client.CopilotASuggestionClient;
 import com.co.code.assistant.providers.geminis.client.GeminisIASuggestionClient;
 import com.co.code.assistant.providers.items.dto.ISuggestionDto;
@@ -38,8 +39,8 @@ public class SuggestionModule extends AbstractModule {
 
     @Provides
     @Singleton
-    protected IGetController<Observable<ControllerDto>> provideExampleController(SuggestionController exampleProvider) {
-        return exampleProvider;
+    protected IGetController<Observable<PresenterDto>> provideController(SuggestionController suggestionController) {
+        return suggestionController;
     }
     /*
     @Provides
@@ -56,7 +57,7 @@ public class SuggestionModule extends AbstractModule {
 
     @Provides
     @Singleton
-    protected SuggestionSafeUseCase<ISuggestionDomain, Map<String, List<String>>> getSafeCase(SuggestionUseCase useCase) {
+    protected SuggestionSafeUseCase<List<ISuggestionDomain>, Map<String, List<String>>> getSafeCase(SuggestionUseCase useCase) {
         return useCase;
     }
 
