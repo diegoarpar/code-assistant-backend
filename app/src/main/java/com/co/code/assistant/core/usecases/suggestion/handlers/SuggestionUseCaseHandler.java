@@ -35,7 +35,7 @@ public class SuggestionUseCaseHandler {
     }
 
     public Observable<List<ISuggestionDomain>> get(Map<String, List<String>> params) {
-        params.put("prompt", List.of("You are a helpful assistant. Validate only for C++ code. If the code is C++, then use sonarqube rules or CPPCheck rules. Not bring not valuable recommendations."));
+        params.put("prompt", List.of("You are a helpful assistant. Validate only for C++ code. If the code is C++, then use sonarqube rules or CPPCheck rules. Not bring not valuable recommendations. If this is not c++, please bring what kind of static code analysis can use."));
         List<ISuggestionDomain> list = new ArrayList<>();
         return Observable.zip(clientOpenIA.getInformation(params),
                                 clientGeminis.getInformation(params),
