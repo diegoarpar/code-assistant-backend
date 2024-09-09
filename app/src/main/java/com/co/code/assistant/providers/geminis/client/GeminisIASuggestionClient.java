@@ -66,7 +66,7 @@ public class GeminisIASuggestionClient implements ISuggestionRepository<Observab
                                 response -> {
                                     String rta = EntityUtils.toString(response.getEntity());
                                     GeminisAIResponseDto response1 = mapper.readValue(rta, GeminisAIResponseDto.class);
-                                    return SuggestionDto.builder().content(response1.candidates.get(0).content.parts.get(0).text).build();
+                                    return SuggestionDto.builder().content(response1.candidates.get(0).content.parts.get(0).text.replaceAll("`", "").replaceAll("html", "")).build();
                                 }
                         );
                     } catch (IOException e) {
