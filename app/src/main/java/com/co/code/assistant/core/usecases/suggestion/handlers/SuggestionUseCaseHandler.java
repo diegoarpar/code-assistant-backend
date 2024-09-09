@@ -35,13 +35,14 @@ public class SuggestionUseCaseHandler {
     }
 
     public Observable<List<ISuggestionDomain>> get(Map<String, List<String>> params) {
-        params.put("prompt", List.of("You are a helpful assistant. Validate only for C++ code. If the code is C++, then use sonarqube rules or CPPCheck rules. Not bring not valuable recommendations. If this is not c++, please bring what kind of static code analysis can use."));
+        //params.put("prompt", List.of("You are a helpful assistant. Validate only for JAVA code. If the code is JAVA, then use sonarqube rules and PMD rules. Not bring not valuable recommendations. If this is not JAVA, please bring what kind of static code analysis can use. Return the information with html tag"));
+        params.put("prompt", List.of("You are a helpful assistant. Validate only for JAVA code. If the code is JAVA, then use sonarqube rules, FindBugs, SpotBugs, Checkstyle, security, and PMD rules. Not bring not valuable recommendations. If this is not JAVA, please bring what kind of static code analysis can use. Answer should be embedded in html tags instead of ** or \\n"));
         List<ISuggestionDomain> list = new ArrayList<>();
         return Observable.zip(clientOpenIA.getInformation(params),
                                 clientGeminis.getInformation(params),
                                 clientCopilot.getInformation(params),
                                     (openIA, geminis, copilot) -> {
-                                        params.put("prompt", List.of("Create a executive summary with all the input information"));
+                                        params.put("prompt", List.of("Create a executive summary with all the input information. Answer should be embedded in html tags instead of ** or \\n"));
                                         params.put("code", List.of(String.format("%s %s %s", openIA.getContent(), geminis.getContent(), copilot.getContent())));
 
                                         ISuggestionDomain openIADomain = SuggestionDomain.builder()

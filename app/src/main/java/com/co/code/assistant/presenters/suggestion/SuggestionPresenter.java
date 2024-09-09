@@ -20,14 +20,11 @@ public class SuggestionPresenter implements IPresenterExample {
                     presenterDto.components = controllerDto.results.stream().map(
                             row -> {
                                 SuggestionPresenterDto.PresenterComponentDto componentDto = new SuggestionPresenterDto.PresenterComponentDto();
-                                componentDto.content = row.content;
+                                componentDto.content = row.content
+                                        .replaceAll("`", "")
+                                        .replaceAll("<>", "")
+                                        .replaceAll("html", "");
                                 componentDto.id = row.id;
-                                componentDto.components = Arrays.stream(row.content.split("\\n")).map(s -> {
-                                    SuggestionPresenterDto.PresenterComponentDto componentDtoInside = new SuggestionPresenterDto.PresenterComponentDto();
-                                    componentDtoInside.content = s;
-                                    componentDtoInside.id = "TEXT";
-                                    return componentDtoInside;
-                                }).toList();
                                 return componentDto;
                             }
                     ).collect(Collectors.toList());
