@@ -3,6 +3,7 @@ package com.co.code.assistant.entrypoints.ping.handler;
 import com.co.code.assistant.configurations.IRouter;
 import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.ping.PingController;
+import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
 import com.google.inject.Inject;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -32,7 +33,7 @@ public class PingEntryPointHandler implements IRouter<PingController> {
 
     }
 
-    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<String>> controller, @NotNull Context ctx) {
+    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<String>, IRequestBody> controller, @NotNull Context ctx) {
         Future future = controller.getInformation(ctx.queryParamMap()).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
         return CompletableFuture.supplyAsync(() -> {
             try {

@@ -8,6 +8,7 @@ public class ApplicationModuleConfiguration extends AbstractModule {
     protected void configure() {
         install(new JavalinModule());
         install(new SuggestionModule());
+        install(new LogsModule());
         //install(new PingModule());
     }
 }

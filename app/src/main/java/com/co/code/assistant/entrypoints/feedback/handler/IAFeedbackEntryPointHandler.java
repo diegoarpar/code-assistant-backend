@@ -1,9 +1,8 @@
-package com.co.code.assistant.entrypoints.codeassitant.handler;
+package com.co.code.assistant.entrypoints.feedback.handler;
 
 import com.co.code.assistant.configurations.IRouter;
-import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.IGetController;
-import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
+import com.co.code.assistant.controllers.feedbackcontroller.FeedbackController;
 import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
 import com.co.code.assistant.entrypoints.codeassitant.dto.RequestBodyCodeInputDto;
 import com.co.code.assistant.presenters.PresenterDto;
@@ -17,20 +16,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.Future;
 
-public class IACodeAssitantEntryPointHandler implements IRouter<SuggestionController> {
+public class IAFeedbackEntryPointHandler implements IRouter<FeedbackController> {
 
     private final Javalin javalin;
-    private final SuggestionController controller;
+    private final FeedbackController controller;
 
     @Inject
-    public IACodeAssitantEntryPointHandler(Javalin javalin, SuggestionController controller) {
+    public IAFeedbackEntryPointHandler(Javalin javalin, FeedbackController controller) {
         this.javalin = javalin;
         this.controller = controller;
     }
 
     @Override
     public void bind() {
-        javalin.post("/api/messages", ctx -> {
+        javalin.post("/api/feedback", ctx -> {
             ctx.future(() -> getCompletableFuture(controller, ctx));
         });
 

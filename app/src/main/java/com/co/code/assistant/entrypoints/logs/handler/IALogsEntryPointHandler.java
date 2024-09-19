@@ -1,12 +1,13 @@
-package com.co.code.assistant.entrypoints.codeassitant.handler;
+package com.co.code.assistant.entrypoints.logs.handler;
 
 import com.co.code.assistant.configurations.IRouter;
-import com.co.code.assistant.controllers.ControllerDto;
+import com.co.code.assistant.controllers.ControllerBody;
 import com.co.code.assistant.controllers.IGetController;
-import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
-import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
+import com.co.code.assistant.controllers.logcontroller.LogController;
+import com.co.code.assistant.controllers.logcontroller.body.LogControllerBody;
 import com.co.code.assistant.entrypoints.codeassitant.dto.RequestBodyCodeInputDto;
 import com.co.code.assistant.presenters.PresenterDto;
+import com.co.code.assistant.presenters.logs.dto.LogsPresenterDto;
 import com.google.inject.Inject;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -17,27 +18,27 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.Future;
 
-public class IACodeAssitantEntryPointHandler implements IRouter<SuggestionController> {
+public class IALogsEntryPointHandler implements IRouter<LogController> {
 
     private final Javalin javalin;
-    private final SuggestionController controller;
+    private final LogController controller;
 
     @Inject
-    public IACodeAssitantEntryPointHandler(Javalin javalin, SuggestionController controller) {
+    public IALogsEntryPointHandler(Javalin javalin, LogController controller) {
         this.javalin = javalin;
         this.controller = controller;
     }
 
     @Override
     public void bind() {
-        javalin.post("/api/messages", ctx -> {
+        javalin.post("/api/log", ctx -> {
             ctx.future(() -> getCompletableFuture(controller, ctx));
         });
 
     }
 
-    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<PresenterDto>, IRequestBody> controller, @NotNull Context ctx) {
-        Future future = controller.getInformation(ctx.queryParamMap(), ctx.bodyAsClass(RequestBodyCodeInputDto.class)).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
+    private CompletableFuture<Void> getCompletableFuture(IGetController<Observable<LogsPresenterDto>, LogControllerBody> controller, @NotNull Context ctx) {
+        Future future = controller.getInformation(ctx.queryParamMap(), ctx.bodyAsClass(LogControllerBody.class)).doOnNext(controllerDto -> ctx.json(controllerDto)).toFuture();
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return future.get();

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
-public class PingController extends Controller implements IGetController<Observable<String>> {
+public class PingController extends Controller implements IGetController<Observable<String>, IRequestBody> {
 
     @Inject
     public ISuggestionHandlerController<Map<String, List<String>>, SuggestionControllerBody, Observable<ControllerDto>> exampleControllerHandler;

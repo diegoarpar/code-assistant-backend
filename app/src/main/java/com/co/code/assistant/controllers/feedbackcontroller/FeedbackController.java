@@ -1,11 +1,11 @@
-package com.co.code.assistant.controllers.SuggestionController;
+package com.co.code.assistant.controllers.feedbackcontroller;
 
 import com.co.code.assistant.controllers.Controller;
 import com.co.code.assistant.controllers.ControllerDto;
 import com.co.code.assistant.controllers.ISuggestionHandlerController;
 import com.co.code.assistant.controllers.IGetController;
-import com.co.code.assistant.controllers.SuggestionController.body.SuggestionControllerBody;
-import com.co.code.assistant.controllers.SuggestionController.dto.SuggestionControllerDto;
+import com.co.code.assistant.controllers.feedbackcontroller.body.FeedbackControllerBody;
+import com.co.code.assistant.controllers.feedbackcontroller.dto.FeedbackControllerDto;
 import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
 import com.co.code.assistant.entrypoints.codeassitant.dto.RequestBodyCodeInputDto;
 import com.co.code.assistant.presenters.PresenterDto;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
-public class SuggestionController extends Controller implements IGetController<Observable<PresenterDto>, IRequestBody> {
+public class FeedbackController extends Controller implements IGetController<Observable<PresenterDto>, IRequestBody> {
 
     @Inject
     public ISuggestionHandlerController< Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> suggestionHandlerController;
@@ -27,14 +27,14 @@ public class SuggestionController extends Controller implements IGetController<O
     public SuggestionPresenter presenter;
 
 
-    public Observable<Object> exampleCreate(Context context, SuggestionControllerBody body) {
+    public Observable<Object> exampleCreate(Context context, FeedbackControllerBody body) {
         return null;
     }
 
     @Override
     public Observable<PresenterDto> getInformation(Map<String, List<String>> params, IRequestBody body) {
         if (!System.getenv("suggestionkey").equalsIgnoreCase(((RequestBodyCodeInputDto)body).key)) {
-            SuggestionControllerDto controllerDto = new SuggestionControllerDto();
+            FeedbackControllerDto controllerDto = new FeedbackControllerDto();
             controllerDto.setId("N/A");
             return presenter.presenter(controllerDto, params);
         }
