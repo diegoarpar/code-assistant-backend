@@ -64,9 +64,13 @@ public class GeminisIASuggestionClient implements ISuggestionRepository<Observab
                     try {
                         return httpClient.execute(request,
                                 response -> {
+                                    if (response.getCode() >= 300) {
+                                        logger.error(EntityUtils.toString(response.getEntity()));
+                                        return SuggestionDto.builder().content("ERROR " + EntityUtils.toString(response.getEntity())).build();
+                                    }
                                     String rta = EntityUtils.toString(response.getEntity());
                                     GeminisAIResponseDto response1 = mapper.readValue(rta, GeminisAIResponseDto.class);
-                                    return SuggestionDto.builder().content(response1.candidates.get(0).content.parts.get(0).text.replaceAll("`", "").replaceAll("html", "")).build();
+                                    return SuggestionDto.builder().content(response != null && response1.candidates != null && !response1.candidates.isEmpty() && response1.candidates.get(0).content != null && response1.candidates.get(0).content.parts != null && !response1.candidates.get(0).content.parts.isEmpty()? response1.candidates.get(0).content.parts.get(0).text.replaceAll("`", "").replaceAll("html", ""): "ERROR").build();
                                 }
                         );
                     } catch (IOException e) {
