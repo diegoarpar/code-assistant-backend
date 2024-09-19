@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Map;
 
-public interface IPresenterExample {
+public interface IPresenterExample<R> {
 
-    Observable<PresenterDto> presenter(ControllerDto controllerDto, Map<String, List<String>> params);
+    Observable<R> presenter(ControllerDto controllerDto, Map<String, List<String>> params);
 }
