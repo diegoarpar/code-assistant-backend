@@ -66,9 +66,13 @@ public class CopilotASuggestionClient implements ISuggestionRepository<Observabl
                     try {
                         return httpClient.execute(request,
                                 response -> {
+                                    if (response.getCode() >= 300) {
+                                        logger.error(EntityUtils.toString(response.getEntity()));
+                                        return SuggestionDto.builder().content("ERROR " + EntityUtils.toString(response.getEntity())).build();
+                                    }
                                     String rta = EntityUtils.toString(response.getEntity());
                                     CopilotAIResponseDto response1 = mapper.readValue(rta, CopilotAIResponseDto.class);
-                                    return SuggestionDto.builder().content(response1.choices.get(0).message.content).build();
+                                    return SuggestionDto.builder().content(response1 != null && response1.choices != null && !response1.choices.isEmpty() && response1.choices.get(0).message != null? response1.choices.get(0).message.content: "Error").build();
                                 }
                         );
                     } catch (IOException e) {
