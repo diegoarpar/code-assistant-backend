@@ -52,7 +52,8 @@ public class CopilotASuggestionClient implements ISuggestionRepository<Observabl
                     json = mapper.writeValueAsString(messages);
                     String apikey = System.getenv("copilotKey");
                     String resource = System.getenv("copilotResource");
-                    HttpPost request = new HttpPost(String.format("https://%s.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2023-03-15-preview", resource));
+                    HttpPost request = new HttpPost(String.format("https://%s.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2023-03-15-preview", resource));
+                                                    //https://opeaniainstance.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2023-03-15-preview
                     request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
                     request.addHeader("api-key", apikey);
@@ -68,7 +69,7 @@ public class CopilotASuggestionClient implements ISuggestionRepository<Observabl
                                 response -> {
                                     if (response.getCode() >= 300) {
                                         logger.error(EntityUtils.toString(response.getEntity()));
-                                        return SuggestionDto.builder().content("ERROR " + EntityUtils.toString(response.getEntity())).build();
+                                        return SuggestionDto.builder().content("ERROR " +response.getCode() + " " + EntityUtils.toString(response.getEntity())).build();
                                     }
                                     String rta = EntityUtils.toString(response.getEntity());
                                     CopilotAIResponseDto response1 = mapper.readValue(rta, CopilotAIResponseDto.class);
