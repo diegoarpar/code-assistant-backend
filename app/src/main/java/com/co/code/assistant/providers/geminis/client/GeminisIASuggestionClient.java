@@ -44,7 +44,7 @@ public class GeminisIASuggestionClient implements ISuggestionRepository<Observab
                             .build();
 
                     String json = "{\"model\":\"gpt-4o\", \"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistan 2t.\"}, {\"role\": \"user\", \"content\": \"" + ((List) params.get("code")).get(0) +"\"}]}";
-                    GeminisAIRequestDto.GeminisAIRequestPartsDto part1 = GeminisAIRequestDto.GeminisAIRequestPartsDto.builder().text((String) ((List) params.get("prompt")).get(0)).build();
+                    GeminisAIRequestDto.GeminisAIRequestPartsDto part1 = GeminisAIRequestDto.GeminisAIRequestPartsDto.builder().text((String) ((List) params.get("promptgeminis")).get(0)).build();
                     GeminisAIRequestDto.GeminisAIRequestContentDto content1 = GeminisAIRequestDto.GeminisAIRequestContentDto.builder().role("model").parts(List.of(part1)).build();
 
                     GeminisAIRequestDto.GeminisAIRequestPartsDto part2 = GeminisAIRequestDto.GeminisAIRequestPartsDto.builder().text((String) ((List) params.get("code")).get(0)).build();
@@ -52,7 +52,7 @@ public class GeminisIASuggestionClient implements ISuggestionRepository<Observab
                     GeminisAIRequestDto geminisAIRequestDto = GeminisAIRequestDto.builder().contents(List.of(content1, content2)).build();
                     json = mapper.writeValueAsString(geminisAIRequestDto);
                     String apikey = System.getenv("geminisKey");
-                    HttpPost request = new HttpPost(String.format("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=%s", apikey));
+                    HttpPost request = new HttpPost(String.format("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=%s", apikey));
                     request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
                     request.setConfig(requestConfig);
                     try {
