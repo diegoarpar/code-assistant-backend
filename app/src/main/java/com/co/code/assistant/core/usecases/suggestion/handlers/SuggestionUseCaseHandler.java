@@ -50,8 +50,8 @@ public class SuggestionUseCaseHandler {
                                 clientGeminis.getInformation(params),
                                 clientCopilot.getInformation(params),
                                     (openIA, geminis, copilot) -> {
-                                        params.put("prompt", List.of("Create a executive summary with all the information divided by 3 sections. One for PMD, Second for Checkstyle and third one with SonarQube. Bring the answer in html format tags instead of ** or \\n-"));
-                                        params.put("code", List.of(String.format("%s %s %s", openIA.getContent(), geminis.getContent(), copilot.getContent())));
+                                        params.put("prompt", List.of("The user will provide input from the source 1, source 2, and source 3. Create a executive summary joining the information divided by 3 sections. One for PMD issues, Second for Checkstyle issues and third one with SonarQube issues. Bring the answer in html format tags instead of ** or \\n-"));
+                                        params.put("code", List.of(String.format("Source 1: %s. \\n\\n Source 2: %s. \\n\\n Source 3: %s", openIA.getContent(), geminis.getContent(), copilot.getContent())));
 
                                         ISuggestionDomain openIADomain = SuggestionDomain.builder()
                                                 .id("OPENAI")
