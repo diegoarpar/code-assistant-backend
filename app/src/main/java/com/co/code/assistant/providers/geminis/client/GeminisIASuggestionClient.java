@@ -52,7 +52,7 @@ public class GeminisIASuggestionClient implements ISuggestionRepository<Observab
                     GeminisAIRequestDto geminisAIRequestDto = GeminisAIRequestDto.builder().contents(List.of(content1, content2)).build();
                     json = mapper.writeValueAsString(geminisAIRequestDto);
                     String apikey = System.getenv("geminisKey");
-                    HttpPost request = new HttpPost(String.format("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=%s", apikey));
+                    HttpPost request = new HttpPost(String.format("https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=%s", apikey));
                     request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
                     request.setConfig(requestConfig);
                     try {
