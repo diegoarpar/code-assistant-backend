@@ -20,7 +20,7 @@ public class LogsPresenter implements IPresenterExample<LogsPresenterDto> {
                             row -> {
                                 LogsPresenterDto.PresenterComponentDto componentDto = new LogsPresenterDto.PresenterComponentDto();
                                 componentDto.content = row.content
-                                        .replaceAll("`", "");
+                                        ;
                                 componentDto.id = row.id;
                                 return componentDto;
                             }

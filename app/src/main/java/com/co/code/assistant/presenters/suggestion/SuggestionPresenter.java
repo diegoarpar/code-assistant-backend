@@ -17,15 +17,16 @@ public class SuggestionPresenter implements IPresenterExample<PresenterDto> {
     public Observable<PresenterDto> presenter(ControllerDto controllerDto, Map<String, List<String>> params) {
         return Observable.fromCallable(() -> {
                     SuggestionPresenterDto presenterDto = SuggestionPresenterDto.builder().build();
-                    presenterDto.components = controllerDto.results.stream().map(
-                            row -> {
-                                SuggestionPresenterDto.PresenterComponentDto componentDto = new SuggestionPresenterDto.PresenterComponentDto();
-                                componentDto.content = row.content
-                                        .replaceAll("`", "");
-                                componentDto.id = row.id;
-                                return componentDto;
-                            }
-                    ).collect(Collectors.toList());
+                    if (controllerDto != null && controllerDto.results != null) {
+                        presenterDto.components = controllerDto.results.stream().map(
+                                row -> {
+                                    SuggestionPresenterDto.PresenterComponentDto componentDto = new SuggestionPresenterDto.PresenterComponentDto();
+                                    componentDto.content = row.content;
+                                    componentDto.id = row.id;
+                                    return componentDto;
+                                }
+                        ).collect(Collectors.toList());
+                    }
                     return presenterDto;
                 }
         );
