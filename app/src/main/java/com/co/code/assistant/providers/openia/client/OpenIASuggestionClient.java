@@ -37,8 +37,8 @@ public class OpenIASuggestionClient implements ISuggestionRepository<Observable<
         return Observable.fromCallable(() -> {
                     ObjectMapper mapper = objectMapperHelper.getObjectMapper();
                     RequestConfig requestConfig = RequestConfig.custom()
-                            .setConnectionRequestTimeout(Timeout.ofMilliseconds(30000))
-                            .setResponseTimeout(Timeout.ofMilliseconds(30000))
+                            .setConnectionRequestTimeout(Timeout.ofMilliseconds(60000))
+                            .setResponseTimeout(Timeout.ofMilliseconds(60000))
                             .build();
 
                     String json = "{\"model\":\"gpt-4o\", \"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistan 2t.\"}, {\"role\": \"user\", \"content\": \"" + ((List) params.get("code")).get(0) +"\"}]}";
