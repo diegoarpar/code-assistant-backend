@@ -13,7 +13,7 @@ services:
       - openaiKey=${openaiKey}
   mongodb:
     image: mongo:latest
-    container_name: mongodb
+    container_name: mongodbcodea
     networks:
       - mongo-net
     restart: always
