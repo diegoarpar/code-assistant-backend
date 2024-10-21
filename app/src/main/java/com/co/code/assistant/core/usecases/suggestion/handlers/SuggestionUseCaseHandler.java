@@ -33,7 +33,7 @@ public class SuggestionUseCaseHandler {
                                     @Named("openai") ISuggestionRepository<Observable<ISuggestionDto>, Map<String, List<String>>> clientOpenIA,
                                     @Named("openaisummary") ISuggestionRepository<Observable<ISuggestionDto>, Map<String, List<String>>> clientOpenIASummary,
                                     @Named("copilot") ISuggestionRepository<Observable<ISuggestionDto>, Map<String, List<String>>> clientCopilot,
-                                    ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> databaseRepository) {
+                                    @Named("mongodb") ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> databaseRepository) {
         this.clientGeminis = clientGeminis;
         this.clientOpenIA = clientOpenIA;
         this.clientOpenIASummary = clientOpenIASummary;

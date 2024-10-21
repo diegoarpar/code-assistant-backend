@@ -1,7 +1,5 @@
-version: '3.8'
 services:
   codeassistback:
-
     network_mode: host
     build: .
     #    ports:
@@ -13,3 +11,20 @@ services:
       - copilotResource=${copilotResource}
       - geminisKey=${geminisKey}
       - openaiKey=${openaiKey}
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    networks:
+      - mongo-net
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=appUser
+      - MONGO_INITDB_ROOT_PASSWORD=appPassword123
+    volumes:
+      - ./data/db:/data/db
+
+networks:
+  mongo-net:
+    driver: bridge

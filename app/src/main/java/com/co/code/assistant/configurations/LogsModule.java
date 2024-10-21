@@ -13,12 +13,14 @@ import com.co.code.assistant.core.usecases.logs.LogsUseCase;
 import com.co.code.assistant.entrypoints.logs.handler.IALogsEntryPointHandler;
 import com.co.code.assistant.presenters.logs.dto.LogsPresenterDto;
 import com.co.code.assistant.providers.database.client.MemoryDatabase;
+import com.co.code.assistant.providers.database.client.MongoDatabase;
 import com.co.code.assistant.providers.items.dto.ISuggestionDto;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Observable;
 
+import javax.inject.Named;
 import java.util.List;
 import java.util.Map;
 
@@ -40,13 +42,6 @@ public class LogsModule extends AbstractModule {
         return suggestionController;
     }
 
-    /*
-    @Provides
-    @Singleton
-    protected IUIComponentDecorator<MessageData, UIComponentDto> provideUITextDecorator(UIComponentTextDecorator uiTextDecorator) {
-        return uiTextDecorator;
-    }
-    */
     @Provides
     @Singleton
     protected ISuggestionHandlerController<Map<String, List<String>>, LogControllerBody, Observable<ControllerDto>> provideControllerHandler(LogControllerHandler suggestionControllerHandler) {
@@ -55,7 +50,15 @@ public class LogsModule extends AbstractModule {
 
     @Provides
     @Singleton
-    protected ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> getDataBase(MemoryDatabase useCase) {
+    @Named("memorydb")
+    protected ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> getDataBaseMemory(MemoryDatabase useCase) {
+        return useCase;
+    }
+
+    @Provides
+    @Singleton
+    @Named("mongodb")
+    protected ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> getDataBaseMongo(MongoDatabase useCase) {
         return useCase;
     }
 

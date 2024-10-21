@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
     implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.2'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.13'
+    implementation 'org.mongodb:mongodb-driver-sync:4.10.0'
 
 }
 

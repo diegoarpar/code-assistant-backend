@@ -8,6 +8,8 @@ import com.co.code.assistant.core.usecases.suggestion.model.SuggestionUseCaseMod
 import com.co.code.assistant.providers.items.dto.ISuggestionDto;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,13 @@ import java.util.stream.Collectors;
 
 public class LogsUseCase implements SuggestionSafeUseCase<List<LogDomain>, Map<String, List<String>>> {
 
-    @Inject
+
     private ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> databaseRepository;
+
+    @Inject
+    public LogsUseCase(@Named("mongodb") ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> databaseRepository) {
+        this.databaseRepository = databaseRepository;
+    }
 
     public SuggestionUseCaseModel getModel(ISuggestionDomain example2Dto, ISuggestionDomain example3Dto) {
         return SuggestionUseCaseModel.builder().example2Entity(example2Dto).example3Entity(example3Dto).build();
