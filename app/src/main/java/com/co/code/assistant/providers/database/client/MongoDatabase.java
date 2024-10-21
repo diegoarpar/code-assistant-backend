@@ -22,7 +22,7 @@ import java.util.Map;
 public class MongoDatabase implements ISuggestionDatabaseRepository<Observable<List<ISuggestionDto>>, Map<String, String>> {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
     private com.mongodb.client.MongoDatabase mongoDb ;
-    private final String connectionString = "mongodb://appUser:appPassword123@localhost:27017";
+    private final String connectionString = "mongodb://appUser:appPassword123@localhost:27018";
 
     @Inject
     public MongoDatabase() {
