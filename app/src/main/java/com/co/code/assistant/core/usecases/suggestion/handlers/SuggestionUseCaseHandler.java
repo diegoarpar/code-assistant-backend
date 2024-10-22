@@ -45,21 +45,21 @@ public class SuggestionUseCaseHandler {
         //params.put("prompt", List.of("You are a helpful assistant. Validate only for JAVA code. If the code is JAVA, then use sonarqube rules and PMD rules. Not bring not valuable recommendations. If this is not JAVA, please bring what kind of static code analysis can use. Return the information with html tag"));
         params.put("prompt", List.of(
                 "You are a issue detector for java code. 1. If the input of the user is not a java code, please say that you do not have feedback for code different to Java. 2. The user input will use HTML tags. 3. Use this template to identify issues related to SonarQube, Checkstyle, and PMD : " +
-                        "<body><h2>Sonarqube Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>Checkstyle Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>PMD Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>Performance & Security Issues</h2> <ul> <li>EXPLANATION_OF_CODE_PERFORMANCE_SECURITY_ISSUE_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>  " +
-                        "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li> </ul> " +
-                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> </body>\n"
+                        "<body><h2>Sonarqube Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>Checkstyle Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>PMD Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>Performance & Security Issues</h2> <ul> <li>EXPLANATION_OF_CODE_PERFORMANCE_SECURITY_ISSUE_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>  \n" +
+                        "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li> </ul> </body>\n" +
+                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n"
         ));
         params.put("promptgeminis", List.of(
                 "You are a issue detector for java code. 1. If the input of the user is not a java code, please say that you do not have feedback for code different to Java. 2. The user input will use HTML tags. 3. Use this template to identify issues related to SonarQube, Checkstyle, and PMD : " +
-                        "<body><h2>Sonarqube Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>Checkstyle Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>PMD Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> " +
-                        "<h2>Performance & Security Issues</h2> <ul> <li>EXPLANATION_OF_CODE_PERFORMANCE_SECURITY_ISSUE_WITH_CSS_COLORS_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>  " +
-                        "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li> </ul> " +
-                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> </body> "
+                        "<body><h2>Sonarqube Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>Checkstyle Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>PMD Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
+                        "<h2>Performance & Security Issues</h2> <ul> <li>EXPLANATION_OF_CODE_PERFORMANCE_SECURITY_ISSUE_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>  \n" +
+                        "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li> </ul> </body>\n" +
+                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n"
         ));
         List<ISuggestionDomain> list = new ArrayList<>();
         return Observable.zip(clientOpenIA.getInformation(params),
