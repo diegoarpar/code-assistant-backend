@@ -43,6 +43,7 @@ public class SuggestionUseCaseHandler {
 
     public Observable<List<ISuggestionDomain>> get(Map<String, List<String>> params) {
         //params.put("prompt", List.of("You are a helpful assistant. Validate only for JAVA code. If the code is JAVA, then use sonarqube rules and PMD rules. Not bring not valuable recommendations. If this is not JAVA, please bring what kind of static code analysis can use. Return the information with html tag"));
+        String userInput = (String) ((List) params.get("code")).get(0);
         params.put("prompt", List.of(
                 "You are a issue detector for java code. 1. If the input of the user is not a java code, please say that you do not have feedback for code different to Java. 2. The user input will use HTML tags. 3. Use this template to identify issues related to SonarQube, Checkstyle, and PMD : " +
                         "<body><h2>Sonarqube Issues</h2> <ul> <li>EXPLANATION_WITH_CODE_ISSUE_HIGHLIGHTED_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul> \n" +
@@ -88,7 +89,7 @@ public class SuggestionUseCaseHandler {
                                         list.add(geminisDomain);
 
                                         return clientOpenIASummary.getInformation(params).map(summary -> {
-                                                    databaseRepository.setInformation(Map.of(UUID.randomUUID().toString(), String.format("OPENIA: %s GEMINIS: %s COPILOT: %s  SUMMARY%s", openIA.getContent(), geminis.getContent(), copilot.getContent(), summary.getContent())));
+                                                    databaseRepository.setInformation(Map.of(UUID.randomUUID().toString(), String.format("<h2>USER INPUT </h2>:%s OPENIA: %s GEMINIS: %s COPILOT: %s  SUMMARY%s", userInput, openIA.getContent(), geminis.getContent(), copilot.getContent(), summary.getContent())));
                                                     ISuggestionDomain summaryDomain = SuggestionDomain.builder()
                                                     .id("SUMMARY")
                                                     .name(summary.getContent())
