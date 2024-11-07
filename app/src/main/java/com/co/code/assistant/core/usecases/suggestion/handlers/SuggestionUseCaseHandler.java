@@ -89,7 +89,7 @@ public class SuggestionUseCaseHandler {
                                         list.add(geminisDomain);
 
                                         return clientOpenIASummary.getInformation(params).map(summary -> {
-                                                    databaseRepository.setInformation(Map.of(UUID.randomUUID().toString(), String.format("<h2>USER INPUT </h2>:%s OPENIA: %s GEMINIS: %s COPILOT: %s  SUMMARY%s", userInput, openIA.getContent(), geminis.getContent(), copilot.getContent(), summary.getContent())));
+                                                    databaseRepository.setInformation(Map.of(UUID.randomUUID().toString(), String.format("<h2>USER INPUT </h2>:%s OPENAI: %s GEMINIS: %s COPILOT: %s  SUMMARY%s", userInput, openIA.getContent(), geminis.getContent(), copilot.getContent(), summary.getContent())));
                                                     ISuggestionDomain summaryDomain = SuggestionDomain.builder()
                                                     .id("SUMMARY")
                                                     .name(summary.getContent())
