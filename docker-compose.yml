@@ -11,6 +11,11 @@ services:
       - copilotResource=${copilotResource}
       - geminisKey=${geminisKey}
       - openaiKey=${openaiKey}
+    depends_on:
+      - rabbitmq
+      - zookeeper
+      - kafka
+      - mongodb
 
   rabbitmq:
     image: rabbitmq:3-management
