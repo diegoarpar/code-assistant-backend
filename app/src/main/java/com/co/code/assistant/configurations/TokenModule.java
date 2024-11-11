@@ -5,9 +5,9 @@ import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.ISuggestionHandlerController;
 import com.co.code.assistant.controllers.tokencontroller.TokenController;
 import com.co.code.assistant.controllers.tokencontroller.handler.TokenControllerHandler;
-import com.co.code.assistant.core.domains.ISuggestionDomain;
+import com.co.code.assistant.core.domains.implementation.LogDomain;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
-import com.co.code.assistant.core.usecases.suggestion.SuggestionUseCase;
+import com.co.code.assistant.core.usecases.token.TokenUseCase;
 import com.co.code.assistant.entrypoints.codeassitant.dto.IRequestBody;
 import com.co.code.assistant.entrypoints.token.handler.IATokenEntryPointHandler;
 import com.co.code.assistant.presenters.PresenterDto;
@@ -16,6 +16,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Observable;
 
+import javax.inject.Named;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class TokenModule extends AbstractModule {
 
     @Provides
     @Singleton
+    @Named("token")
     protected IGetController<Observable<PresenterDto>, IRequestBody> provideController(TokenController suggestionController) {
         return suggestionController;
     }
@@ -45,13 +47,15 @@ public class TokenModule extends AbstractModule {
     */
     @Provides
     @Singleton
+    @Named("token")
     protected ISuggestionHandlerController<Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> provideControllerHandler(TokenControllerHandler suggestionControllerHandler) {
         return suggestionControllerHandler;
     }
 
     @Provides
     @Singleton
-    protected SuggestionSafeUseCase<List<ISuggestionDomain>, Map<String, List<String>>> getSafeCase(SuggestionUseCase useCase) {
+    @Named("token")
+    protected SuggestionSafeUseCase<List<LogDomain>, Map<String, List<String>>> getSafeCase(TokenUseCase useCase) {
         return useCase;
     }
 

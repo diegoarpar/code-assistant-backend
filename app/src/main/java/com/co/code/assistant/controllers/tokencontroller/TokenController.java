@@ -21,11 +21,16 @@ import java.util.Map;
 @Singleton
 public class TokenController extends Controller implements IGetController<Observable<PresenterDto>, IRequestBody> {
 
-    @Inject
     public ISuggestionHandlerController< Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> suggestionHandlerController;
-    @Inject
+
     public SuggestionPresenter presenter;
 
+    @Inject
+    public TokenController(ISuggestionHandlerController<Map<String, List<String>>, IRequestBody, Observable<ControllerDto>> suggestionHandlerController,
+           SuggestionPresenter presenter) {
+        this.suggestionHandlerController = suggestionHandlerController;
+        this.presenter = presenter;
+    }
 
     public Observable<Object> exampleCreate(Context context, TokenControllerDto body) {
         return null;

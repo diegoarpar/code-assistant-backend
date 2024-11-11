@@ -7,6 +7,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Sorts;
 import io.reactivex.rxjava3.core.Observable;
 import org.bson.Document;
 
@@ -41,7 +42,7 @@ public class MongoDatabase implements ISuggestionDatabaseRepository<Observable<L
                 MongoCollection<Document> collection = mongoDb.getCollection("logs");
 
 
-                for (Document doc : collection.find()) {
+                for (Document doc : collection.find().sort(Sorts.descending("_id"))) {
                     String id = doc.getString("info");
                     String name = doc.getString("content");
                     ISuggestionDto dto = SuggestionDto.builder().id(id).content(name).build();

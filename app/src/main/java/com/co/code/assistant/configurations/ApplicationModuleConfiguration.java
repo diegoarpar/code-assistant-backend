@@ -9,6 +9,8 @@ public class ApplicationModuleConfiguration extends AbstractModule {
         install(new JavalinModule());
         install(new SuggestionModule());
         install(new LogsModule());
+        install(new TokenModule());
+        install(new FeedbackModule());
         //install(new PingModule());
     }
 }

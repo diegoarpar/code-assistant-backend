@@ -6,6 +6,7 @@ import com.co.code.assistant.controllers.IGetController;
 import com.co.code.assistant.controllers.SuggestionController.SuggestionController;
 import com.co.code.assistant.controllers.SuggestionController.handler.SuggestionControllerHandler;
 import com.co.code.assistant.core.domains.ISuggestionDomain;
+import com.co.code.assistant.core.repositories.mq.ISuggestionMQRepository;
 import com.co.code.assistant.core.repositories.suggestion.ISuggestionRepository;
 import com.co.code.assistant.core.usecases.SuggestionSafeUseCase;
 import com.co.code.assistant.core.usecases.suggestion.SuggestionUseCase;
@@ -15,6 +16,8 @@ import com.co.code.assistant.presenters.PresenterDto;
 import com.co.code.assistant.providers.copilot.client.CopilotASuggestionClient;
 import com.co.code.assistant.providers.geminis.client.GeminisIASuggestionClient;
 import com.co.code.assistant.providers.items.dto.ISuggestionDto;
+import com.co.code.assistant.providers.mq.Kafka;
+import com.co.code.assistant.providers.mq.RabbitMQ;
 import com.co.code.assistant.providers.openia.client.OpenIASuggestionClient;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -86,6 +89,20 @@ public class SuggestionModule extends AbstractModule {
     @Singleton
     @Named("copilot")
     protected ISuggestionRepository<Observable<ISuggestionDto>, Map<String, List<String>>> getRepositoryCopilot(CopilotASuggestionClient provider) {
+        return provider;
+    }
+
+    @Provides
+    @Singleton
+    @Named("rabbit")
+    protected ISuggestionMQRepository<Observable<List<ISuggestionDto>>, Map<String, String>> getRabbitMq(RabbitMQ provider) {
+        return provider;
+    }
+
+    @Provides
+    @Singleton
+    @Named("kafka")
+    protected ISuggestionMQRepository<Observable<List<ISuggestionDto>>, Map<String, String>> getKafkaMq(Kafka provider) {
         return provider;
     }
 
