@@ -62,7 +62,7 @@ public class SuggestionUseCaseHandler {
                         "<h2>Cyclomatic Complexity</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE_CYCLOMATIC_COMPLEXITY</li>/ul> <ul>EXPLANATION_OF_RATE_BETWEEN_1_TO_100_CYCLOMATIC_COMPLEXITY</ul> </body>\n" +
                         "<h2>Cognitive Complexity </h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE_COGNITIVE_COMPLEXITY</li>/ul> <ul>EXPLANATION_OF_RATE_BETWEEN_1_TO_100_CODE_COGNITIVE_COMPLEXITY</ul> </body>\n" +
                         "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li>/ul> <ul>EXPLANATION_OF_RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</ul> </body>\n" +
-                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n. TAKE_INTO_ACCOUNT: HIGHLIGHTED should use red color for errors and blue color for new code and do not take into account indentation rule."
+                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n. TAKE_INTO_ACCOUNT: HIGHLIGHTED should use red color for errors and blue color for new code and do not take into account indentation rule for the input but not for the code suggestion."
         ));
         params.put("promptgeminis", List.of(
                 "You are a issue detector for java code. 1. If the input of the user is not a java code, please say that you do not have feedback for code different to Java. 2. The user input will use HTML tags. 3. Use this template to identify issues related to SonarQube, Checkstyle, and PMD : " +
@@ -73,7 +73,7 @@ public class SuggestionUseCaseHandler {
                         "<h2>Cognitive Complexity </h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE_COGNITIVE_COMPLEXITY</li>/ul> <ul>EXPLANATION_OF_RATE_BETWEEN_1_TO_100_CODE_COGNITIVE_COMPLEXITY</ul> </body>\n" +
                         "<h2>Performance & Security Issues</h2> <ul> <li>EXPLANATION_OF_CODE_PERFORMANCE_SECURITY_ISSUE_WITH_CSS_COLORS_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>  \n" +
                         "<h2>Quality of code</h2> <ul> <li>RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</li>/ul> <ul>EXPLANATION_OF_RATE_BETWEEN_1_TO_100_QUALITY_OF_CODE</ul> </body>\n" +
-                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n. TAKE_INTO_ACCOUNT: HIGHLIGHTED should use red color for errors and blue color for new code and do not take into account indentation rule"
+                        "<h2>Code suggestion </h2> <ul> <li>JAVA_CODE_SUGGESTION_FIXING_ISSUES_AND_USE_HTML_FORMATTED_INSTEAD_OF_BACKTICK</li> </ul>\n. TAKE_INTO_ACCOUNT: HIGHLIGHTED should use red color for errors and blue color for new code and do not take into account indentation rule for the input but not for the code suggestion"
         ));
         List<ISuggestionDomain> list = new ArrayList<>();
         return Observable.zip(clientOpenIA.getInformation(params),
